@@ -1,0 +1,24 @@
+{
+
+  "config.skyblock.enabled": "Enabled",
+  "config.skyblock.extra": "Extra Patterns",
+    "config.skyblock.extra.desc": "Extra regex patterns for messages to disable",
+  "config.skyblock.extraUi": "Extra UI Patterns",
+    "config.skyblock.extraUi.desc": "Extra regex patterns for messages to show them in the separate UI",
+
+  "config.skyblock.chat.title": "Chat",
+
+  "config.skyblock.chat.lobby.lobbyJoinMessage": "Lobby Join Message",
+  "config.skyblock.chat.actionBar.abilityUse": "Ability Use Message",
+  "config.skyblock.chat.welcomeToSkyblock": "Welcome to Skyblock Message",
+  "config.skyblock.chat.travel.warping": "Warping Message",
+  "config.skyblock.chat.system.gexpGain": "GEXP Gain Message",
+  "config.skyblock.chat.system.profileId": "Profile ID Message",
+  "config.skyblock.chat.system.playingOnProfile": "Playing on Profile Message",
+  "config.skyblock.chat.system.watchdogReport": "Watchdog Report Message",
+  "config.skyblock.chat.travel.sendingToServer": "Sending to Server Message",
+  "config.skyblock.chat.dungeonHub.dungeonReward": "Dungeon Hub Reward Message",
+  "config.skyblock.chat.item.zombieSwordNoMoreCharges": "Zombie Sword No More Charges Message",
+  "config.skyblock.chat.misc.ringing": "Ringing Message",
+  "config.skyblock.chat.misc.alreadyFoundFairySoul": "Already Found Fairy Soul Message"
+}

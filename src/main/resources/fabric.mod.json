@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "skyblock",
+  "version": "${version}",
+  "name": "Sky-Block",
+  "description": "Customizable mod for Hypixel Skyblock removing/moving chat messages",
+  "authors": [
+    "Mayaqq"
+  ],
+  "contact": {
+    "source": "https://github.com/MayaqqDev/Sky-Block"
+  },
+  "license": "LGPL-3.0",
+  "icon": "assets/skyblock/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "dev.mayaqq.skyblock.client.SkyblockClient"
+      }
+    ]
+  },
+  "mixins": [
+    "skyblock.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

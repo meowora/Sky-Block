@@ -29,6 +29,6 @@ class ConfigInfoProvider : ResourcefulConfigInfo {
     )
 
     override fun icon(): String = "box"
-    override fun color(): ResourcefulConfigColor = ResourcefulConfigColorValue.create("#FFFFFF")
+    override fun color(): ResourcefulConfigColor = ResourcefulConfigColorValue.create("#fbb8ff")
     override fun isHidden(): Boolean = false
 }

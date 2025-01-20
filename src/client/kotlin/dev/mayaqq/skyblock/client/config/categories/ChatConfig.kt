@@ -31,6 +31,8 @@ object ChatConfig {
     @ConfigOption.Separator("Skyblock")
     @ConfigEntry(id = "welcomeToSkyblock", translation = "config.skyblock.chat.welcomeToSkyblock")
     var welcomeToSkyblock = HidingOption.DISABLED
+    @ConfigEntry(id = "fireSale", translation = "config.skyblock.chat.fireSale")
+    var fireSale = HidingOption.DISABLED
 
     @ConfigOption.Separator("Travel")
     @ConfigEntry(id = "warping", translation = "config.skyblock.chat.travel.warping")
@@ -43,6 +45,10 @@ object ChatConfig {
     var dungeonReward = HidingOption.DISABLED
 
     @ConfigOption.Separator("Item")
+    @ConfigEntry(id = "cannotUseItem", translation = "config.skyblock.chat.item.cannotUseItem")
+    var cannotUseItem = HidingOption.DISABLED
+    @ConfigEntry(id = "abilityCooldown", translation = "config.skyblock.chat.item.abilityCooldown")
+    var abilityCooldown = HidingOption.DISABLED
     @ConfigEntry(id = "zombieSwordNoMoreCharges", translation = "config.skyblock.chat.item.zombieSwordNoMoreCharges")
     var zombieSwordNoMoreCharges = HidingOption.DISABLED
 

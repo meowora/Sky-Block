@@ -20,5 +20,8 @@
   "config.skyblock.chat.dungeonHub.dungeonReward": "Dungeon Hub Reward Message",
   "config.skyblock.chat.item.zombieSwordNoMoreCharges": "Zombie Sword No More Charges Message",
   "config.skyblock.chat.misc.ringing": "Ringing Message",
-  "config.skyblock.chat.misc.alreadyFoundFairySoul": "Already Found Fairy Soul Message"
+  "config.skyblock.chat.misc.alreadyFoundFairySoul": "Already Found Fairy Soul Message",
+  "config.skyblock.chat.fireSale": "Fire Sale Message",
+  "config.skyblock.chat.item.cannotUseItem": "Cannot Use Item Here Message",
+  "config.skyblock.chat.item.abilityCooldown": "Ability on Cooldown Message"
 }

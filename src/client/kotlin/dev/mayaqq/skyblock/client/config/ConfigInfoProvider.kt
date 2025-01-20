@@ -17,7 +17,7 @@ class ConfigInfoProvider : ResourcefulConfigInfo {
 
     override fun links(): Array<ResourcefulConfigLink> = arrayOf(
         ResourcefulConfigLink.create(
-            "https://modrinth.com/project/Sky-Block",
+            "https://modrinth.com/project/hypixel-sky-block",
             "modrinth",
             TranslatableValue("Modrinth")
         ),

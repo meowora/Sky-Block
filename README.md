@@ -2,7 +2,7 @@
 
 # Sky-Block
 
-<a href="https://modrinth.com/mod/sky-block">
+<a href="https://modrinth.com/mod/hypixel-sky-block">
     <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg&w=100&h=100" alt="Modrinth">
 </a>
 <a href="https://github.com/MayaqqDev/sky-block/">

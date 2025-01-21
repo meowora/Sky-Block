@@ -21,14 +21,12 @@ object Config {
     @ConfigEntry(id = "extra", translation = "config.skyblock.extra")
     @Comment("", translation = "config.skyblock.extra.desc")
     val extra: Observable<Array<String>> = Observable.of(
-        arrayOf(
-        )
+        arrayOf()
     )
 
     @ConfigEntry(id = "extraUi", translation = "config.skyblock.extraUi")
     @Comment("", translation = "config.skyblock.extraUi.desc")
     val extraUi: Observable<Array<String>> = Observable.of(
-        arrayOf(
-        )
+        arrayOf()
     )
 }

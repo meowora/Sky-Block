@@ -22,6 +22,106 @@ Simple, yet highly customizable mod for Hypixel Skyblock. It allows you to speci
 
 All Config is accessible through ModMenu and or the `/sky-block` command.
 
+## `Options`
+
+<details>
+<summary>Lobby</summary>
+
+- Lobby Join
+
+</details>
+
+<details>
+<summary>Ability</summary>
+
+- Previous Ability Removed
+
+</details>
+
+<details>
+<summary>System</summary>
+
+- GEXP Gain
+- Profile ID
+- Playing on Profile
+- Watchdog Report
+
+</details>
+
+<details>
+<summary>Skyblock</summary>
+
+- Skyblock Welcome
+- Fire Sale
+- Allowance
+- NPC
+- NPC Buy
+- Buy Limit
+
+</details>
+
+<details>
+<summary>Travel</summary>
+
+- Warping
+- Sending to Server
+- Unknown Destination
+
+</details>
+
+<details>
+<summary>Dungeon Hub</summary>
+
+- Dungeon Reward
+
+</details>
+
+<details>
+<summary>Dungeon</summary>
+
+- Cannot use outside Dungeon
+- Queuing
+- Starting
+- Stats Doubled
+- Class Messages
+- Dungeon Request Already
+- Selected Class Message
+
+</details>
+
+<details>
+<summary>Mining</summary>
+
+- Wind Changed Direction
+- Event Starting
+- Fallen Star
+
+</details>
+
+<details>
+<summary>Item</summary>
+
+- Cannot Use Item
+- Ability Cooldown
+- Zombie Sword no more Charges
+
+</details>
+
+<details>
+<summary>Miscellaneous</summary>
+
+- Ringing
+- Already found Fairy Soul
+
+</details>
+
+<details>
+<summary>Ironman</summary>
+
+- Auction Disallowed
+
+</details>
+
 ## `Bisect Partnership`
 
 [![Promo Code](https://mayaqq.dev/media/server-host.png)](https://server.mayaqq.dev)

@@ -100,7 +100,8 @@ object ChatConfig {
     @Separator("Century Cake")
     @ConfigEntry(id = "wrongTeam", translation = "config.skyblock.chat.centuryCake.wrongTeam")
     var wrongTeam = HidingOption.DISABLED
-
     @ConfigEntry(id = "tooMuchCake", translation = "config.skyblock.chat.centuryCake.tooMuchCake")
     var tooMuchCake = HidingOption.DISABLED
+    @ConfigEntry(id = "notAPlayer", translation = "config.skyblock.chat.centuryCake.notAPlayer")
+    var notAPlayer = HidingOption.DISABLED
 }

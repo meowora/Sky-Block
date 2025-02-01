@@ -80,6 +80,9 @@ enum class Messages(
     TOO_MUCH_CAKE(
         """This person has had too much cake today!""",
         { ChatConfig.tooMuchCake }),
+    NOT_A_PLAYER(
+        """Click a player on a matching team to feed them this cake! This isn't a player!""",
+        { ChatConfig.notAPlayer }),
     ;
 
     val regex = Regex(regex0)

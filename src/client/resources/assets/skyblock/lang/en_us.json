@@ -1,5 +1,4 @@
 {
-
   "config.skyblock.enabled": "Enabled",
   "config.skyblock.extra": "Extra Patterns",
     "config.skyblock.extra.desc": "Extra regex patterns for messages to disable",
@@ -40,5 +39,9 @@
   "config.skyblock.chat.dungeon.classMessage": "Class Message",
   "config.skyblock.chat.dungeon.requestedDungeonAlready": "Dungeon Requested Already Message",
   "config.skyblock.chat.dungeon.selectedClassMessage": "Selected Class Message",
-  "config.skyblock.chat.travel.unknownDestination": "Unknown Destination Message"
+  "config.skyblock.chat.travel.unknownDestination": "Unknown Destination Message",
+  "config.skyblock.chat.centuryCake.wrongTeam": "Wrong Team Message",
+  "config.skyblock.chat.centuryCake.wrongCake": "Wrong Cake Message",
+  "config.skyblock.chat.centuryCake.notAPlayer": "Not a Player Message",
+  "config.skyblock.chat.centuryCake.notYourCake": "Not Your Cake Message"
 }

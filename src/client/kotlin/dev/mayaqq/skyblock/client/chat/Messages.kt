@@ -72,6 +72,20 @@ enum class Messages(
     AUCTION_DISALLOWED(
         """You can't use the Auction House while playing on your current profile type!""",
         { ChatConfig.auctionDisallowed }),
+
+    // Century Cake
+    WRONG_TEAM(
+        """This person is not on the right team! Feed this cake to someone on the .* Team!""",
+        { ChatConfig.wrongTeam }),
+    TOO_MUCH_CAKE(
+        """This person has had too much cake today!""",
+        { ChatConfig.tooMuchCake }),
+    NOT_A_PLAYER(
+        """Click a player on a matching team to feed them this cake! This isn't a player!""",
+        { ChatConfig.notAPlayer }),
+    NOT_YOUR_CAKE(
+        """This Century Cake Slice is for .*, sorry!""",
+        { ChatConfig.notYourCake }),
     ;
 
     val regex = Regex(regex0)

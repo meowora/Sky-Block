@@ -96,4 +96,14 @@ object ChatConfig {
     @Separator("Ironman")
     @ConfigEntry(id = "auctionDisallowed", translation = "config.skyblock.chat.ironman.auctionDisallowed")
     var auctionDisallowed = HidingOption.DISABLED
+
+    @Separator("Century Cake")
+    @ConfigEntry(id = "wrongTeam", translation = "config.skyblock.chat.centuryCake.wrongTeam")
+    var wrongTeam = HidingOption.DISABLED
+    @ConfigEntry(id = "tooMuchCake", translation = "config.skyblock.chat.centuryCake.tooMuchCake")
+    var tooMuchCake = HidingOption.DISABLED
+    @ConfigEntry(id = "notAPlayer", translation = "config.skyblock.chat.centuryCake.notAPlayer")
+    var notAPlayer = HidingOption.DISABLED
+    @ConfigEntry(id = "notYourCake", translation = "config.skyblock.chat.centuryCake.notYourCake")
+    var notYourCake = HidingOption.DISABLED
 }

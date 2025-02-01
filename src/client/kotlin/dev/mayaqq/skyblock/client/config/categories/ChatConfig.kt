@@ -104,4 +104,6 @@ object ChatConfig {
     var tooMuchCake = HidingOption.DISABLED
     @ConfigEntry(id = "notAPlayer", translation = "config.skyblock.chat.centuryCake.notAPlayer")
     var notAPlayer = HidingOption.DISABLED
+    @ConfigEntry(id = "notYourCake", translation = "config.skyblock.chat.centuryCake.notYourCake")
+    var notYourCake = HidingOption.DISABLED
 }

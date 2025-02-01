@@ -42,5 +42,6 @@
   "config.skyblock.chat.travel.unknownDestination": "Unknown Destination Message",
   "config.skyblock.chat.centuryCake.wrongTeam": "Wrong Team Message",
   "config.skyblock.chat.centuryCake.wrongCake": "Wrong Cake Message",
-  "config.skyblock.chat.centuryCake.notAPlayer": "Not a Player Message"
+  "config.skyblock.chat.centuryCake.notAPlayer": "Not a Player Message",
+  "config.skyblock.chat.centuryCake.notYourCake": "Not Your Cake Message"
 }

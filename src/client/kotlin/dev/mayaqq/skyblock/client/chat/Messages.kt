@@ -83,6 +83,9 @@ enum class Messages(
     NOT_A_PLAYER(
         """Click a player on a matching team to feed them this cake! This isn't a player!""",
         { ChatConfig.notAPlayer }),
+    NOT_YOUR_CAKE(
+        """This Century Cake Slice is for .*, sorry!""",
+        { ChatConfig.notYourCake }),
     ;
 
     val regex = Regex(regex0)

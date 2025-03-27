@@ -20,7 +20,7 @@
 
 Simple, yet highly customizable mod for Hypixel Skyblock. It allows you to specify custom regexes, choose from predefined ones, either block them completely separate UI similar to Skytils mod.
 
-If you want toast notifications for some specific skyblock messages (similar to ones located in skytils, install [skycubed](https://modrinth.com/mod/skycubed) mod.
+If you want toast notifications for some specific skyblock messages (similar to ones located in skytils), install [skycubed](https://modrinth.com/mod/skycubed) mod.
 
 All Config is accessible through ModMenu and or the `/sky-block` command.
 

@@ -65,7 +65,7 @@ enum class Messages(
     ZOMBIE_SWORD_NO_MORE_CHARGES("""No more charges, next one in [\s\S]*""", { ChatConfig.zombieSwordNoMoreCharges }),
 
     // Miscellaneous
-    RINGING("""✆ RING...[\s\S]*""", { ChatConfig.ringing }),
+    RINGING("""✆ RING...(?![\s\S]*\[PICK UP])[\s\S]*""", { ChatConfig.ringing }),
     ALREADY_FOUND_FAIRY_SOUL("""You have already found that Fairy Soul!""", { ChatConfig.alreadyFoundFairySoul }),
 
     // Ironman

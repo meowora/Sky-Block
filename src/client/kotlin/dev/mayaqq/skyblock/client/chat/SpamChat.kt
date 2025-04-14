@@ -4,7 +4,12 @@ import dev.mayaqq.skyblock.client.SkyblockClient
 import dev.mayaqq.skyblock.client.config.categories.ChatConfig
 import dev.mayaqq.skyblock.client.config.Config
 import dev.mayaqq.skyblock.client.utils.pushPop
+import net.minecraft.client.gui.components.toasts.SystemToast
+import net.minecraft.client.gui.components.toasts.Toast
+import net.minecraft.client.gui.components.toasts.ToastManager
 import net.minecraft.network.chat.Component
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import tech.thatgravyboat.skyblockapi.api.events.base.Subscription
 import tech.thatgravyboat.skyblockapi.api.events.chat.ActionBarReceivedEvent
 import tech.thatgravyboat.skyblockapi.api.events.chat.ChatReceivedEvent
@@ -12,6 +17,8 @@ import tech.thatgravyboat.skyblockapi.api.events.info.ActionBarWidget
 import tech.thatgravyboat.skyblockapi.api.events.info.RenderActionBarWidgetEvent
 import tech.thatgravyboat.skyblockapi.api.events.render.RenderHudEvent
 import tech.thatgravyboat.skyblockapi.helpers.McClient
+import tech.thatgravyboat.skyblockapi.utils.text.Text
+import java.awt.Color
 import java.util.Collections
 import java.util.Date
 import kotlin.math.sin
@@ -40,6 +47,7 @@ object SpamChat {
     @Subscription
     fun onHudRender(event: RenderHudEvent) {
         if (!Config.enabled) return
+        if (McClient.options.hideGui) return
 
         val font = McClient.self.font
         val now = System.currentTimeMillis()
@@ -117,20 +125,25 @@ object SpamChat {
         Messages.entries.forEach { message ->
             val regex = message.regex
             val option = message.option.get()
+            if (regex.find(event.text) == null) return@forEach
             when (option) {
                 HidingOption.SEPARATE -> {
-                    if (regex.find(event.text) != null) {
-                        SkyblockClient.info("$regex matched")
-                        separate(event.component)
-                        event.cancel()
-                    }
+                    separate(event.component)
+                    event.cancel()
+                    return
+                }
+                HidingOption.TOAST -> {
+                    McClient.self.toastManager.addToast(SkyBlockToast(Items.GRASS_BLOCK.defaultInstance, Text.of("Hewwo").withColor(Color.red.rgb), Text.of("Person joined!!")))
+                    event.cancel()
+                    return
                 }
                 HidingOption.HIDE -> {
-                    if (regex.find(event.text) != null) {
-                        event.cancel()
-                    }
+                    event.cancel()
+                    return
                 }
-                else -> {}
+                else -> {
+                    return@forEach
+                }
             }
         }
     }

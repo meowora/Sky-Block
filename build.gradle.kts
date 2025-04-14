@@ -73,6 +73,9 @@ dependencies {
     modImplementation(libs.resourceful.config)
     modImplementation(libs.resourceful.config.kotlin)
 
+    modImplementation(libs.olympus)
+    include(libs.olympus)
+
     modRuntimeOnly(libs.devauth)
 }
 
@@ -80,7 +83,7 @@ tasks.processResources {
     inputs.property("version", project.version)
     inputs.property("minecraft_version", libs.versions.minecraft.get())
     inputs.property("loader_version", libs.versions.fabric.get())
-    inputs.property("kotlin_loader_version", libs.versions.kotlin)
+    inputs.property("kotlin_loader_version", libs.versions.kotlin.lang.get())
     filteringCharset = "UTF-8"
 
     filesMatching("fabric.mod.json") {
@@ -88,7 +91,7 @@ tasks.processResources {
             "version" to project.version,
             "minecraft_version" to libs.versions.minecraft.get(),
             "loader_version" to libs.versions.fabric.get(),
-            "kotlin_loader_version" to libs.versions.kotlin
+            "kotlin_loader_version" to libs.versions.kotlin.lang.get()
         )
     }
 }

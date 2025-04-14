@@ -4,8 +4,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("fabric-loom") version libs.versions.loom
-    kotlin("jvm") version libs.versions.kotlin
+    alias(libs.plugins.loom)
+    kotlin("jvm") version "2.0.20"
     alias(libs.plugins.publish)
 }
 
@@ -63,10 +63,12 @@ dependencies {
 
     modImplementation(libs.fapi)
 
-    implementation(include(libs.kotlinx.coroutines.core)!!)
+    include(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.core)
 
     modImplementation(libs.modmenu)
-    modImplementation(include(libs.sbapi)!!)
+    include(libs.sbapi)
+    modImplementation(libs.sbapi)
 
     modImplementation(libs.resourceful.config)
     modImplementation(libs.resourceful.config.kotlin)
@@ -76,25 +78,22 @@ dependencies {
 
 tasks.processResources {
     inputs.property("version", project.version)
-    inputs.property("minecraft_version", project.property("minecraft_version"))
-    inputs.property("loader_version", project.property("loader_version"))
+    inputs.property("minecraft_version", libs.versions.minecraft.get())
+    inputs.property("loader_version", libs.versions.fabric.get())
+    inputs.property("kotlin_loader_version", libs.versions.kotlin)
     filteringCharset = "UTF-8"
 
     filesMatching("fabric.mod.json") {
         expand(
             "version" to project.version,
-            "minecraft_version" to project.property("minecraft_version"),
-            "loader_version" to project.property("loader_version"),
-            "kotlin_loader_version" to project.property("kotlin_loader_version")
+            "minecraft_version" to libs.versions.minecraft.get(),
+            "loader_version" to libs.versions.fabric.get(),
+            "kotlin_loader_version" to libs.versions.kotlin
         )
     }
 }
 
 tasks.withType<JavaCompile>().configureEach {
-    // ensure that the encoding is set to UTF-8, no matter what the system default is
-    // this fixes some edge cases with special characters not displaying correctly
-    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-    // If Javadoc is generated, this must be specified in that task too.
     options.encoding = "UTF-8"
     options.release.set(targetJavaVersion)
 }
@@ -110,4 +109,18 @@ tasks.jar {
 }
 
 publishMods {
+    file.set(tasks.remapJar.get().archiveFile)
+    modLoaders.add("fabric")
+    type.set(STABLE)
+
+    modrinth {
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        projectId = "vUfww66P"
+        minecraftVersions.add("1.21.5")
+
+        requires { slug = "fabric-api" }
+        requires { slug = "fabric-language-kotlin" }
+        requires { slug = "hypixel-mod-api" }
+        requires { slug = "resourceful-config" }
+    }
 }

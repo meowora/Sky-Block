@@ -2,16 +2,15 @@
 
 minecraft = "1.21.4"
 fabric = "0.16.12"
-kotlin = "2.0.20"
 kotlin-lang = "1.13.0+kotlin.2.1.0"
 loom = "1.10-SNAPSHOT"
 
-fapi = "0.114.0+1.21.4"
+fapi = "0.119.5+1.21.5"
 parchment = "2024.12.07"
-modmenu = "12.0.0-beta.1"
+modmenu = "14.0.0-rc.2"
 devauth = "1.2.1"
 sbapi = "1.0.0-beta.90"
-resourceful-config = "3.4.1"
+resourceful-config = "3.5.0"
 resourceful-config-kotlin = "3.3.2"
 
 kotlinx-coroutines-core = "1.10.1"
@@ -26,10 +25,11 @@ kotlin-lang = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "k
 fapi = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fapi" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-core" }
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
-sbapi = { module = "tech.thatgravyboat:skyblock-api-1.21.4", version.ref = "sbapi" }
-resourceful-config = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21.4", version.ref = "resourceful-config" }
+sbapi = { module = "tech.thatgravyboat:skyblock-api-1.21.5", version.ref = "sbapi" }
+resourceful-config = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21.5", version.ref = "resourceful-config" }
 resourceful-config-kotlin = { module = "com.teamresourceful.resourcefulconfigkt:resourcefulconfigkt-fabric-1.21.3", version.ref = "resourceful-config-kotlin" }
 devauth = { module = "me.djtheredstoner:DevAuth-fabric", version.ref = "devauth" }
 
 [plugins]
 publish = { id = "me.modmuss50.mod-publish-plugin", version.ref = "publish" }
+loom = { id = "fabric-loom", version.ref = "loom" }

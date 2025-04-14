@@ -124,6 +124,16 @@ All Config is accessible through ModMenu and or the `/sky-block` command.
 
 </details>
 
+<details>
+<summary>Century Cake</summary>
+
+- Wrong Team
+- Too Much Cake
+- Not a player
+- Not your cake
+
+</details>
+
 ## `Bisect Partnership`
 
 [![Promo Code](https://mayaqq.dev/media/server-host.png)](https://server.mayaqq.dev)

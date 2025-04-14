@@ -1,9 +1,12 @@
+@file:Suppress("UnstableApiUsage")
+
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "2.0.20"
-    id("fabric-loom") version "1.9-SNAPSHOT"
+    id("fabric-loom") version libs.versions.loom
+    kotlin("jvm") version libs.versions.kotlin
+    alias(libs.plugins.publish)
 }
 
 version = project.property("mod_version") as String
@@ -50,27 +53,25 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
+    minecraft(libs.minecraft)
     mappings(loom.layered {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${project.properties["minecraft_version"]}:${project.properties["parchment_version"]}@zip")
+        parchment(libs.parchment)
     })
-    modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
-    modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
+    modImplementation(libs.fabric)
+    modImplementation(libs.kotlin.lang)
 
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
+    modImplementation(libs.fapi)
 
-    implementation(include("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")!!)
+    implementation(include(libs.kotlinx.coroutines.core)!!)
 
-    modImplementation("com.terraformersmc:modmenu:${project.properties["modmenu_version"]}")
-    modImplementation(include("net.hypixel:mod-api:${project.properties["hypixel_api_version"]}")!!)
-    modImplementation("maven.modrinth:hypixel-mod-api:${project.properties["hypixel_api_version_modrinth"]}")
-    modImplementation(include("tech.thatgravyboat:skyblock-api-${project.properties["minecraft_version"]}:${project.properties["skyblock_api_version"]}")!!)
+    modImplementation(libs.modmenu)
+    modImplementation(include(libs.sbapi)!!)
 
-    modImplementation("com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-${project.properties["minecraft_version"]}:${project.properties["resourceful_config_version"]}")
-    modImplementation("com.teamresourceful.resourcefulconfigkt:resourcefulconfigkt-fabric-1.21.3:${project.properties["resourceful_config_kt_version"]}")
+    modImplementation(libs.resourceful.config)
+    modImplementation(libs.resourceful.config.kotlin)
 
-    modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${project.properties["devauth_version"]}")
+    modRuntimeOnly(libs.devauth)
 }
 
 tasks.processResources {
@@ -106,4 +107,7 @@ tasks.jar {
     from("LICENSE") {
         rename { "${it}_${project.base.archivesName}" }
     }
+}
+
+publishMods {
 }

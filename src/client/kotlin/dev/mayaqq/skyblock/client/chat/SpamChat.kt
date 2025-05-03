@@ -124,7 +124,7 @@ object SpamChat {
 
         Messages.entries.forEach { message ->
             val regex = message.regex
-            val option = message.option.get()
+            val option = message.option()
             if (regex.find(event.text) == null) return@forEach
             when (option) {
                 HidingOption.SEPARATE -> {

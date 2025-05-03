@@ -1,5 +1,6 @@
 package dev.mayaqq.skyblock.client
 
+import dev.mayaqq.skyblock.client.chat.Messages
 import dev.mayaqq.skyblock.client.chat.SpamChat
 import dev.mayaqq.skyblock.client.config.ConfigManager
 import net.fabricmc.api.ModInitializer
@@ -15,5 +16,7 @@ object SkyblockClient : ModInitializer, Logger by LoggerFactory.getLogger(MODID)
     override fun onInitialize() {
         SkyBlockAPI.eventBus.register(SpamChat)
         SkyBlockAPI.eventBus.register(ConfigManager)
+
+        Messages.generate()
     }
 }

@@ -77,6 +77,9 @@ dependencies {
     include(libs.olympus)
 
     modRuntimeOnly(libs.devauth)
+
+    implementation("me.owdding.kotlinpoet:kotlinpoet-jvm:2.2.0-SNAPSHOT")
+    implementation("me.owdding.kotlinpoet:ksp:2.2.0-SNAPSHOT")
 }
 
 tasks.processResources {

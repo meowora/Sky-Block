@@ -1,14 +1,9 @@
 package dev.mayaqq.skyblock.client.chat
 
-import dev.mayaqq.skyblock.client.SkyblockClient
-import dev.mayaqq.skyblock.client.config.categories.ChatConfig
 import dev.mayaqq.skyblock.client.config.Config
+import dev.mayaqq.skyblock.client.config.categories.ChatConfig
 import dev.mayaqq.skyblock.client.utils.pushPop
-import net.minecraft.client.gui.components.toasts.SystemToast
-import net.minecraft.client.gui.components.toasts.Toast
-import net.minecraft.client.gui.components.toasts.ToastManager
 import net.minecraft.network.chat.Component
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import tech.thatgravyboat.skyblockapi.api.events.base.Subscription
 import tech.thatgravyboat.skyblockapi.api.events.chat.ActionBarReceivedEvent
@@ -19,8 +14,7 @@ import tech.thatgravyboat.skyblockapi.api.events.render.RenderHudEvent
 import tech.thatgravyboat.skyblockapi.helpers.McClient
 import tech.thatgravyboat.skyblockapi.utils.text.Text
 import java.awt.Color
-import java.util.Collections
-import java.util.Date
+import java.util.*
 import kotlin.math.sin
 
 object SpamChat {
@@ -81,7 +75,7 @@ object SpamChat {
                 translate(
                     event.graphics.guiWidth().toFloat() - (x + messageWidth).toFloat(),
                     event.graphics.guiHeight().toFloat() - y.toFloat(),
-                    0.0F
+                    0.0F,
                 )
 
                 event.graphics.drawStringWithBackdrop(
@@ -90,7 +84,7 @@ object SpamChat {
                     0,
                     -50,
                     0,
-                    0
+                    0,
                 )
             }
             message.time += timePassed
@@ -122,7 +116,7 @@ object SpamChat {
             }
         }
 
-        Messages.entries.forEach { message ->
+        SpamMessage.entries.forEach { message ->
             val regex = message.regex
             val option = message.option()
             if (regex.find(event.text) == null) return@forEach
@@ -132,15 +126,24 @@ object SpamChat {
                     event.cancel()
                     return
                 }
+
                 HidingOption.TOAST -> {
-                    McClient.self.toastManager.addToast(SkyBlockToast(Items.GRASS_BLOCK.defaultInstance, Text.of("Hewwo").withColor(Color.red.rgb), Text.of("Person joined!!")))
+                    McClient.self.toastManager.addToast(
+                        SkyBlockToast(
+                            Items.GRASS_BLOCK.defaultInstance,
+                            Text.of("Hewwo").withColor(Color.red.rgb),
+                            Text.of("Person joined!!"),
+                        ),
+                    )
                     event.cancel()
                     return
                 }
+
                 HidingOption.HIDE -> {
                     event.cancel()
                     return
                 }
+
                 else -> {
                     return@forEach
                 }
@@ -156,7 +159,7 @@ object SpamChat {
     fun onActionBarWidget(event: ActionBarReceivedEvent.Pre) {
 
         if (!Config.enabled) return
-        if (!ChatConfig.abilityUse) return
+        if (!Config.abilityUse) return
 
         event.coloredText.split("     ").forEach { message ->
             if (abilityRegex.matches(message)) {
@@ -171,16 +174,13 @@ object SpamChat {
 
     @Subscription
     fun onWidgetRender(event: RenderActionBarWidgetEvent) {
-        if (ChatConfig.abilityUse && event.widget == ActionBarWidget.ABILITY) {
+        if (Config.abilityUse && event.widget == ActionBarWidget.ABILITY) {
             event.cancel()
         }
     }
 
 
-    private fun separate(string: String) {
-        val component = Component.literal(string)
-        separate(component)
-    }
+    private fun separate(string: String) = separate(Text.of(string))
 
     private fun separate(component: Component) {
         val message = Message(component, 0, 0.0)

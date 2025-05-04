@@ -4,6 +4,7 @@ import com.teamresourceful.resourcefulconfig.api.annotations.Comment
 import com.teamresourceful.resourcefulconfig.api.annotations.Config
 import com.teamresourceful.resourcefulconfig.api.annotations.ConfigEntry
 import com.teamresourceful.resourcefulconfig.api.annotations.ConfigInfo
+import com.teamresourceful.resourcefulconfig.api.annotations.ConfigOption
 import com.teamresourceful.resourcefulconfig.api.types.entries.Observable
 import dev.mayaqq.skyblock.client.config.categories.ChatConfig
 
@@ -29,4 +30,8 @@ object Config {
     val extraUi: Observable<Array<String>> = Observable.of(
         arrayOf()
     )
+
+    @ConfigOption.Separator("Extras")
+    @ConfigEntry(id = "abilityUse", translation = "config.skyblock.chat.actionBar.abilityUse")
+    var abilityUse = false
 }

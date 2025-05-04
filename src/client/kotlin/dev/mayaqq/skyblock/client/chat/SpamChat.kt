@@ -21,8 +21,8 @@ object SpamChat {
     private var messages = Collections.synchronizedList(ArrayList<Message>())
     private var previousRender = Date().time
 
-    private var extraMessages = Config.extra.map(::Regex)
-    private var extraUiMessages = Config.extraUi.map(::Regex)
+    private var extraMessages = Config.extra.mapNotNull { runCatching { Regex(it) }.getOrNull() }
+    private var extraUiMessages = Config.extraUi.mapNotNull { runCatching { Regex(it) }.getOrNull() }
 
     fun onExtraChange(new: Array<out String>) {
         extraMessages = new.mapNotNull {
@@ -176,7 +176,6 @@ object SpamChat {
             event.cancel()
         }
     }
-
 
     private fun separate(string: String) = separate(Text.of(string))
 

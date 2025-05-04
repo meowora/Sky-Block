@@ -5,8 +5,15 @@ import com.teamresourceful.resourcefulconfig.api.types.info.ResourcefulConfigLin
 import com.teamresourceful.resourcefulconfigkt.api.ConfigKt
 import dev.mayaqq.skyblock.client.SkyblockClient
 import dev.mayaqq.skyblock.client.chat.SpamChat
+import dev.mayaqq.skyblock.client.chat.SpamMessage
 
 object Config : ConfigKt("sky-block") {
+    init {
+        category("Chat") {
+            SpamMessage.entriesWithSeparators().forEach(this::element)
+        }
+    }
+
     var enabled by boolean("enabled", false) {
         name = Translated("config.skyblock.enabled")
     }

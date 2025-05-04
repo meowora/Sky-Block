@@ -1,50 +1,10 @@
 package dev.mayaqq.skyblock.client.utils
 
-import com.teamresourceful.resourcefulconfig.api.patching.ConfigPatchEvent
-import com.teamresourceful.resourcefulconfig.api.types.ResourcefulConfig
-import com.teamresourceful.resourcefulconfig.api.types.ResourcefulConfigCategory
-import com.teamresourceful.resourcefulconfig.api.types.ResourcefulConfigElement
 import com.teamresourceful.resourcefulconfig.api.types.elements.ResourcefulConfigSeparatorElement
 import com.teamresourceful.resourcefulconfig.api.types.entries.ResourcefulConfigValueEntry
-import com.teamresourceful.resourcefulconfig.api.types.info.ResourcefulConfigColorValue
-import com.teamresourceful.resourcefulconfig.api.types.info.ResourcefulConfigInfo
-import com.teamresourceful.resourcefulconfig.api.types.info.ResourcefulConfigLink
 import com.teamresourceful.resourcefulconfig.api.types.options.EntryData
 import com.teamresourceful.resourcefulconfig.api.types.options.EntryType
 import com.teamresourceful.resourcefulconfig.api.types.options.TranslatableValue
-import java.util.function.Consumer
-
-class DynamicConfigCategory(
-    val dynamicInfo: DynamicInfo,
-    val id: String,
-    val entries: List<ResourcefulConfigElement>,
-    val parent: ResourcefulConfig,
-) : ResourcefulConfigCategory {
-    override fun parent() = parent
-    override fun categories() = LinkedHashMap<String, ResourcefulConfig>()
-
-    override fun info() = dynamicInfo
-    override fun id() = id
-    override fun save() = parent.save()
-    override fun elements() = entries
-
-    override fun load(handler: Consumer<ConfigPatchEvent>) = parent.load(handler)
-}
-
-class DynamicInfo(val color: Int, titleKey: String, descriptionKey: String) : ResourcefulConfigInfo {
-    private val title = Translated(titleKey)
-    private val description = Translated(descriptionKey)
-
-    override fun title() = title
-    override fun description() = description
-
-    override fun icon() = "box"
-
-    @OptIn(ExperimentalStdlibApi::class)
-    override fun color(): ResourcefulConfigColorValue = ResourcefulConfigColorValue.create(color.toHexString())
-    override fun links() = emptyArray<ResourcefulConfigLink>()
-    override fun isHidden() = false
-}
 
 class DynamicSeparator(
     title: String,

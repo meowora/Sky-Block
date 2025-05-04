@@ -4,6 +4,7 @@
     "config.skyblock.extra.desc": "Extra regex patterns for messages to disable",
     "config.skyblock.extraUi": "Extra UI Patterns",
     "config.skyblock.extraUi.desc": "Extra regex patterns for messages to show them in the separate UI",
+    "config.skyblock.actionBar.abilityUse": "Ability Use Messages",
 
     "config.skyblock.chat.title": "Chat",
 

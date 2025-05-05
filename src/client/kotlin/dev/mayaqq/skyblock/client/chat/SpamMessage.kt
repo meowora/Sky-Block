@@ -95,6 +95,10 @@ enum class SpamMessage(
         """You may only use this menu after 4s on the server!""",
         MessageCategory.SYSTEM,
     ),
+    LATEST_UPDATE(
+        """Latest update: SkyBlock [\s\S]* CLICK""",
+        MessageCategory.SYSTEM,
+    ),
 
     // Skyblock
     SKYBLOCK_WELCOME(

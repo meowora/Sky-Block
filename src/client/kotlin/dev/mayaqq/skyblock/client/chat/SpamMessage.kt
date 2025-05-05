@@ -75,7 +75,7 @@ enum class SpamMessage(
 
     // System
     GEXP_GAIN(
-        """You earned (\d+ GEXP (\\+ \d+ Event EXP )?)from playing [\s\S]*!""",
+        """You earned (\d+ GEXP) from playing [\s\S]*!|You earned (\d+ GEXP \\+ \d+ Event EXP) from playing [\s\S]*!""",
         MessageCategory.SYSTEM,
         ToastData(4000F, "§2§lPlaytime Reward", "{1}", ItemStack(Items.GOLDEN_APPLE)),
     ),
@@ -97,6 +97,15 @@ enum class SpamMessage(
     ),
     LATEST_UPDATE(
         """Latest update: SkyBlock [\s\S]* CLICK""",
+        MessageCategory.SYSTEM,
+    ),
+    FRIEND_STATUS(
+        """(Friend) > ([\s\S]*)""",
+        MessageCategory.SYSTEM,
+        ToastData(4000F, "{1}", "{2}")
+    ),
+    GUILD_STATUS(
+        """(Guild) > ([\s\S]*)""",
         MessageCategory.SYSTEM,
     ),
 
@@ -392,12 +401,12 @@ enum class SpamMessage(
         ToastData(4000F, "{1}", "{2}"),
     ),
     EGG_FOUND(
-        """(HOPPITY'S HUNT) (You found a Chocolate Lunch Egg in the Bazaar Alley!)""",
+        """(HOPPITY'S HUNT) (You found a [\s\S]*!)""",
         MessageCategory.EVENT,
         ToastData(4000F, "{1}", "{2}"),
     ),
     EGG_COLLECTED(
-        """(HOPPITY'S HUNT) (You found Gracie (COMMON)!)""",
+        """(HOPPITY'S HUNT) (You found [\s\S]*!)""",
         MessageCategory.EVENT,
         ToastData(4000F, "{1}", "{2}"),
     ),
@@ -410,6 +419,10 @@ enum class SpamMessage(
         """^You cannot currently claim this reward!""",
         MessageCategory.EVENT,
     ),
+    NO_EGGS_NEARBY(
+        """There are no hidden Chocolate Rabbit Eggs nearby! Try again later!""",
+        MessageCategory.EVENT,
+    )
 
     ;
 

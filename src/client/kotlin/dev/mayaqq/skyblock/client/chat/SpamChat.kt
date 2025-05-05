@@ -145,20 +145,20 @@ object SpamChat {
                 removingHidingOption = option
             }
             SkyblockClient.info("Removing message {} with regex {} and option {} and colored text {}", event.text, regex, option, event.coloredText)
-            removeMessage(option, event, message, found)
+            if (removeMessage(option, event, message, found)) return
         }
     }
 
-    private fun removeMessage(option: HidingOption, event: ChatReceivedEvent.Pre, message: SpamMessage? = null, regexResult: ComponentMatchResult? = null) {
+    private fun removeMessage(option: HidingOption, event: ChatReceivedEvent.Pre, message: SpamMessage? = null, regexResult: ComponentMatchResult? = null): Boolean {
         when (option) {
             HidingOption.SEPARATE -> {
                 separate(event.component)
                 event.cancel()
-                return
+                return true
             }
 
             HidingOption.TOAST -> {
-                if (message?.toast == null || regexResult == null) return
+                if (message?.toast == null || regexResult == null) return false
                 McClient.self.toastManager.addToast(
                     SkyBlockToast(
                         message.toast.icon,
@@ -168,16 +168,16 @@ object SpamChat {
                     ),
                 )
                 event.cancel()
-                return
+                return true
             }
 
             HidingOption.HIDE -> {
                 event.cancel()
-                return
+                return true
             }
 
             else -> {
-                return
+                return false
             }
         }
     }

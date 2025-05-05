@@ -101,6 +101,7 @@ object SpamChat {
 
     @Subscription
     fun onChatReceived(event: ChatReceivedEvent.Pre) {
+        SkyblockClient.info("Chat received: {}", event.coloredText)
         if (!Config.enabled) return
 
         if (removingRegex != null && removingRegex!!.find(event.text) != null) {
@@ -138,14 +139,14 @@ object SpamChat {
         SpamMessage.entries.forEach { message ->
             val regex = message.regex
             val option = message.option()
-            val found = regex.find(event.text) ?: return@forEach
+            val found = regex.find(if (message.colored) event.coloredText else event.text) ?: return@forEach
             if (message.islands.isNotEmpty() && LocationAPI.island !in message.islands) return@forEach
             if (message.endRegex != null) {
                 removing = true
                 removingRegex = Regex(message.endRegex)
                 removingHidingOption = option
             }
-            SkyblockClient.debug("Removing message {} with regex {} and option {}", event.text, regex.pattern, option)
+            SkyblockClient.info("Removing message {} with regex {} and option {} and colored text {}", event.text, regex.pattern, option, event.coloredText)
             removeMessage(option, event, message, found)
         }
     }

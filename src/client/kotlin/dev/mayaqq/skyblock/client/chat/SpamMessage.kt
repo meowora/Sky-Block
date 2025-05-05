@@ -5,6 +5,8 @@ import com.teamresourceful.resourcefulconfig.api.types.elements.ResourcefulConfi
 import dev.mayaqq.skyblock.client.utils.DynamicEntryData
 import dev.mayaqq.skyblock.client.utils.DynamicSeparator
 import dev.mayaqq.skyblock.client.utils.ResourcefulConfigEnumValueEntry
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import tech.thatgravyboat.skyblockapi.api.location.SkyBlockIsland
 
 enum class MessageCategory {
@@ -28,6 +30,7 @@ enum class SpamMessage(
     val category: MessageCategory,
     val toast: ToastData? = null,
     val endRegex: String? = null,
+    val colored: Boolean = false,
     vararg val islands: SkyBlockIsland
 ) : ResourcefulConfigEnumValueEntry, ResourcefulConfigEntryElement {
     // Lobby
@@ -44,7 +47,7 @@ enum class SpamMessage(
 
     // System
     GEXP_GAIN(
-        """You earned \d+ GEXP from playing [\s\S]*!""",
+        """You earned \d+ GEXP (\\+ \d+ Event EXP )?from playing [\s\S]*!""",
         MessageCategory.SYSTEM,
     ),
     PROFILE_ID(
@@ -56,7 +59,7 @@ enum class SpamMessage(
         MessageCategory.SYSTEM,
     ),
     WATCHDOG_REPORT(
-        """[\s\S]*(\\\[WATCHDOG ANNOUNCEMENT]|Watchdog has banned|Staff have banned an additional|Blacklisted modifications are a bannable offense!)[\s\S]*""",
+        """[\s\S]*(\\\[WATCHDOG ANNOUNCEMENT\\]|Watchdog has banned|Staff have banned an additional|Blacklisted modifications are a bannable offense!)[\s\S]*""",
         MessageCategory.SYSTEM,
     ),
 
@@ -148,6 +151,23 @@ enum class SpamMessage(
     FALLEN_STAR(
         """✯ A Fallen Star has crashed at [\s\S]*""",
         MessageCategory.MINING
+    ),
+    MONOLITH(
+        """(MONOLITH!) ([\s\S]*)""",
+        MessageCategory.MINING,
+        ToastData(4000F, "{1}{2}", "{3}", Items.DRAGON_EGG.defaultInstance),
+        null,
+        true,
+        SkyBlockIsland.DWARVEN_MINES
+    ),
+    SKYMALL_NEW_DAY(
+        "New day! Your Sky Mall buff changed!",
+        MessageCategory.MINING
+    ),
+    SKYMALL(
+        "New buff: Gain 5x Titanium drops",
+        MessageCategory.MINING,
+        ToastData(4000F, "{1}", "{2}", Items.DRAGON_EGG.defaultInstance),
     ),
 
     // Item

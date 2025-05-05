@@ -25,6 +25,8 @@ enum class SpamMessage(
     // language=RegExp
     regex: String,
     val category: MessageCategory,
+    val toast: ToastData? = null,
+    val endRegex: String? = null,
 ) : ResourcefulConfigEnumValueEntry, ResourcefulConfigEntryElement {
     // Lobby
     LOBBY_JOIN(
@@ -142,7 +144,7 @@ enum class SpamMessage(
         MessageCategory.MINING,
     ),
     FALLEN_STAR(
-        """✯ A Fallen Star has crashed at Cliffside Veins![\s\S]*""",
+        """✯ A Fallen Star has crashed at [\s\S]*""",
         MessageCategory.MINING,
     ),
 
@@ -202,7 +204,10 @@ enum class SpamMessage(
     override fun get() = option
 
     override fun setEnum(value: Enum<*>?) = runCatching {
-        option = value as HidingOption
+        if (!(value == HidingOption.TOAST && this.toast == null)) {
+            option = value as HidingOption
+
+        }
     }.isSuccess
 
     val entryData = DynamicEntryData("config.skyblock.chat.${category.name.lowercase()}.${name.lowercase()}", "")

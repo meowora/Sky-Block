@@ -1,5 +1,6 @@
 package dev.mayaqq.skyblock.client.chat
 
+import dev.mayaqq.skyblock.client.SkyblockClient
 import dev.mayaqq.skyblock.client.config.Config
 import dev.mayaqq.skyblock.client.utils.pushPop
 import net.minecraft.network.chat.Component
@@ -91,9 +92,26 @@ object SpamChat {
         messages.removeIf { it.time > 4000 }
     }
 
+    private var removing = false
+    private var removingRegex: Regex? = null
+    private var removingHidingOption: HidingOption? = null
+
     @Subscription
     fun onChatReceived(event: ChatReceivedEvent.Pre) {
         if (!Config.enabled) return
+
+        if (removingRegex != null && removingRegex!!.find(event.text) != null) {
+            removing = false
+            removingRegex = null
+            removeMessage(removingHidingOption!!, event)
+            removingHidingOption = null
+            return
+        }
+
+        if (removing && removingHidingOption != null) {
+            removeMessage(removingHidingOption!!, event)
+            return
+        }
 
         if (extraMessages.isNotEmpty()) {
             for (regex in extraMessages) {
@@ -117,34 +135,46 @@ object SpamChat {
         SpamMessage.entries.forEach { message ->
             val regex = message.regex
             val option = message.option()
-            if (regex.find(event.text) == null) return@forEach
-            when (option) {
-                HidingOption.SEPARATE -> {
-                    separate(event.component)
-                    event.cancel()
-                    return
-                }
+            val found = regex.find(event.text) ?: return@forEach
+            if (message.endRegex != null) {
+                removing = true
+                removingRegex = Regex(message.endRegex)
+                removingHidingOption = option
+            }
+            SkyblockClient.debug("Removing message {} with regex {} and option {}", event.text, regex.pattern, option)
+            removeMessage(option, event, message, found)
+        }
+    }
 
-                HidingOption.TOAST -> {
-                    McClient.self.toastManager.addToast(
-                        SkyBlockToast(
-                            Items.GRASS_BLOCK.defaultInstance,
-                            Text.of("Hewwo").withColor(Color.red.rgb),
-                            Text.of("Person joined!!"),
-                        ),
-                    )
-                    event.cancel()
-                    return
-                }
+    private fun removeMessage(option: HidingOption, event: ChatReceivedEvent.Pre, message: SpamMessage? = null, regexResult: MatchResult? = null) {
+        when (option) {
+            HidingOption.SEPARATE -> {
+                separate(event.component)
+                event.cancel()
+                return
+            }
 
-                HidingOption.HIDE -> {
-                    event.cancel()
-                    return
-                }
+            HidingOption.TOAST -> {
+                if (message?.toast == null || regexResult == null) return
+                McClient.self.toastManager.addToast(
+                    SkyBlockToast(
+                        message.toast.icon,
+                        message.toast.buildTitle(regexResult),
+                        message.toast.buildBody(regexResult),
+                        message.toast.duration
+                    ),
+                )
+                event.cancel()
+                return
+            }
 
-                else -> {
-                    return@forEach
-                }
+            HidingOption.HIDE -> {
+                event.cancel()
+                return
+            }
+
+            else -> {
+                return
             }
         }
     }

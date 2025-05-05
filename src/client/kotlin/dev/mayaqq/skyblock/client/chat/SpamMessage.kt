@@ -387,7 +387,7 @@ enum class SpamMessage(
         MessageCategory.EVENT,
         ToastData(4000F, "{1}", "{2}"),
     ),
-    EGG_COLLECTED(
+    EGG_FOUND(
         """(HOPPITY'S HUNT) (You found a Chocolate Lunch Egg in the Bazaar Alley!)""",
         MessageCategory.EVENT,
         ToastData(4000F, "{1}", "{2}"),

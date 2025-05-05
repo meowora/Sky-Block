@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.loom)
-    kotlin("jvm") version "2.0.20"
+    alias(libs.plugins.kotlin)
     alias(libs.plugins.publish)
 }
 
@@ -77,9 +77,6 @@ dependencies {
     include(libs.olympus)
 
     modRuntimeOnly(libs.devauth)
-
-    implementation("me.owdding.kotlinpoet:kotlinpoet-jvm:2.2.0-SNAPSHOT")
-    implementation("me.owdding.kotlinpoet:ksp:2.2.0-SNAPSHOT")
 }
 
 tasks.processResources {

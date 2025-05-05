@@ -1,34 +1,68 @@
 package dev.mayaqq.skyblock.client.config
 
-import com.teamresourceful.resourcefulconfig.api.annotations.*
-import com.teamresourceful.resourcefulconfig.api.annotations.Config
-import com.teamresourceful.resourcefulconfig.api.types.entries.Observable
-import dev.mayaqq.skyblock.client.config.categories.ChatConfig
+import com.teamresourceful.resourcefulconfig.api.types.info.ResourcefulConfigColorValue
+import com.teamresourceful.resourcefulconfig.api.types.info.ResourcefulConfigLink
+import com.teamresourceful.resourcefulconfigkt.api.ConfigKt
+import dev.mayaqq.skyblock.client.SkyblockClient
+import dev.mayaqq.skyblock.client.chat.SpamChat
+import dev.mayaqq.skyblock.client.chat.SpamMessage
 
-@Config(
-    "sky-block",
-    categories = [
-        ChatConfig::class
-    ]
-)
-@ConfigInfo.Provider(ConfigInfoProvider::class)
-object Config {
-    @ConfigEntry(id = "enabled", translation = "config.skyblock.enabled")
-    var enabled = true
+object Config : ConfigKt("sky-block") {
+    init {
+        category("Chat") {
+            SpamMessage.entriesWithSeparators().forEach(this::element)
+        }
+    }
 
-    @ConfigEntry(id = "extra", translation = "config.skyblock.extra")
-    @Comment("", translation = "config.skyblock.extra.desc")
-    val extra: Observable<Array<String>> = Observable.of(
-        arrayOf()
+    var enabled by boolean("enabled", false) {
+        name = Translated("config.skyblock.enabled")
+    }
+
+    val extra by observable(
+        strings {
+            translation = "config.skyblock.extra"
+        },
+        wrapped(SpamChat::onExtraChange),
     )
 
-    @ConfigEntry(id = "extraUi", translation = "config.skyblock.extraUi")
-    @Comment("", translation = "config.skyblock.extraUi.desc")
-    val extraUi: Observable<Array<String>> = Observable.of(
-        arrayOf()
+    private fun wrapped(function: (Array<out String>) -> Unit): (Array<out String>, Array<out String>) -> Unit {
+        return { _, new -> function(new) }
+    }
+
+    val extraUi by observable(
+        strings {
+            translation = "config.skyblock.extraUi"
+        },
+        wrapped(SpamChat::onExtraUiChange),
     )
 
-    @ConfigOption.Separator("Extras")
-    @ConfigEntry(id = "abilityUse", translation = "config.skyblock.actionBar.abilityUse")
-    var abilityUse = false
+    init {
+        separator {
+            title = "Extras"
+        }
+    }
+
+    var abilityUse by boolean("abilityUse", false) {
+        translation = "config.skyblock.actionBar.abilityUse"
+    }
+
+    override val name = Literal("Sky-Block (v${SkyblockClient.self.metadata.version.friendlyString})")
+    override val description = Literal("Customizable mod for Hypixel Skyblock removing/moving chat messages")
+
+    override val links = arrayOf(
+        ResourcefulConfigLink.create(
+            "https://modrinth.com/project/hypixel-sky-block",
+            "modrinth",
+            Literal("Modrinth"),
+        ),
+        ResourcefulConfigLink.create(
+            "https://github.com/MayaqqDev/Sky-Block",
+            "code",
+            Literal("GitHub"),
+        ),
+    )
+
+    override val icon = "box"
+    override val color: ResourcefulConfigColorValue = ResourcefulConfigColorValue.create("#fbb8ff")
+    override val hidden = false
 }

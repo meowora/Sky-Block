@@ -9,20 +9,18 @@ import tech.thatgravyboat.skyblockapi.helpers.McClient
 object ConfigManager {
     private val configurator = Configurator("skyblock")
 
-    init {
-        configurator.register(Config::class.java)
-    }
+    val config = Config.register(configurator)
 
     @Subscription
     fun onRegisterCommands(event: RegisterCommandsEvent) {
         event.register("sky-block") {
             callback {
-                McClient.setScreen(ResourcefulConfigScreen.get(null, configurator, Config::class.java))
+                McClient.setScreen(ResourcefulConfigScreen.get(null, config))
             }
         }
     }
 
     fun save() {
-        configurator.saveConfig(Config::class.java)
+        config.save()
     }
 }

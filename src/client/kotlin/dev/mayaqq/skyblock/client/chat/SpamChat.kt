@@ -1,7 +1,6 @@
 package dev.mayaqq.skyblock.client.chat
 
 import dev.mayaqq.skyblock.client.config.Config
-import dev.mayaqq.skyblock.client.config.categories.ChatConfig
 import dev.mayaqq.skyblock.client.utils.pushPop
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Items
@@ -22,19 +21,18 @@ object SpamChat {
     private var messages = Collections.synchronizedList(ArrayList<Message>())
     private var previousRender = Date().time
 
-    private var extraMessages = Config.extra.get().map(::Regex)
-    private var extraUiMessages = Config.extraUi.get().map(::Regex)
+    private var extraMessages = Config.extra.mapNotNull { runCatching { Regex(it) }.getOrNull() }
+    private var extraUiMessages = Config.extraUi.mapNotNull { runCatching { Regex(it) }.getOrNull() }
 
-    init {
-        Config.extra.addListener { _, new ->
-            extraMessages = new.mapNotNull {
-                runCatching { Regex(it) }.getOrNull()
-            }
+    fun onExtraChange(new: Array<out String>) {
+        extraMessages = new.mapNotNull {
+            runCatching { Regex(it) }.getOrNull()
         }
-        Config.extraUi.addListener { _, new ->
-            extraUiMessages = new.mapNotNull {
-                runCatching { Regex(it) }.getOrNull()
-            }
+    }
+
+    fun onExtraUiChange(new: Array<out String>) {
+        extraUiMessages = new.mapNotNull {
+            runCatching { Regex(it) }.getOrNull()
         }
     }
 
@@ -178,7 +176,6 @@ object SpamChat {
             event.cancel()
         }
     }
-
 
     private fun separate(string: String) = separate(Text.of(string))
 

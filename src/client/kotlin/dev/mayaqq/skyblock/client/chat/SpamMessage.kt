@@ -1,16 +1,10 @@
 package dev.mayaqq.skyblock.client.chat
 
-import com.squareup.kotlinpoet.AnnotationSpec
-import com.squareup.kotlinpoet.FileSpec
-import com.squareup.kotlinpoet.PropertySpec
-import com.squareup.kotlinpoet.TypeSpec
-import com.teamresourceful.resourcefulconfig.api.annotations.Category
-import com.teamresourceful.resourcefulconfig.api.annotations.ConfigEntry
-import com.teamresourceful.resourcefulconfig.api.annotations.ConfigInfo
-import com.teamresourceful.resourcefulconfig.api.annotations.ConfigOption
-import dev.mayaqq.skyblock.client.config.categories.ChatConfig
-import java.io.File
-import kotlin.reflect.full.memberProperties
+import com.teamresourceful.resourcefulconfig.api.types.ResourcefulConfigElement
+import com.teamresourceful.resourcefulconfig.api.types.elements.ResourcefulConfigEntryElement
+import dev.mayaqq.skyblock.client.utils.DynamicEntryData
+import dev.mayaqq.skyblock.client.utils.DynamicSeparator
+import dev.mayaqq.skyblock.client.utils.ResourcefulConfigEnumValueEntry
 
 enum class MessageCategory {
     LOBBY,
@@ -29,9 +23,9 @@ enum class MessageCategory {
 
 enum class SpamMessage(
     // language=RegExp
-    regex0: String,
+    regex: String,
     val category: MessageCategory,
-) {
+) : ResourcefulConfigEnumValueEntry, ResourcefulConfigEntryElement {
     // Lobby
     LOBBY_JOIN(
         """(?:>>> )?[\s\S]*joined the lobby!(?: <<<)?""",
@@ -201,52 +195,38 @@ enum class SpamMessage(
     ),
     ;
 
-    val regex = Regex(regex0)
+    var option: HidingOption = HidingOption.DISABLED
 
-    fun option() = this.name.let { name -> ChatConfig::class.memberProperties.find { it.name == name }?.get(ChatConfig) as HidingOption }
+    override fun defaultValue() = HidingOption.DISABLED
+    override fun objectType() = HidingOption::class.java
+    override fun get() = option
+
+    override fun setEnum(value: Enum<*>?) = runCatching {
+        option = value as HidingOption
+    }.isSuccess
+
+    val entryData = DynamicEntryData("config.skyblock.chat.${category.name.lowercase()}.${name.lowercase()}", "")
+    override fun options() = entryData
+
+    override fun reset() {
+        option = HidingOption.DISABLED
+    }
+
+    override fun id() = name
+    override fun entry() = this
+
+    val regex: Regex = Regex(regex)
+
+    fun option() = option
 
     companion object {
-        fun generate() {
-            var lastCategory: MessageCategory? = null
-
-            val file = FileSpec.builder("dev.mayaqq.skyblock.client.config.categories", "ChatConfig")
-                .indent("    ")
-                .addType(
-                    TypeSpec.objectBuilder("ChatConfig").apply {
-                        this.addAnnotation(
-                            AnnotationSpec.builder(ConfigInfo::class)
-                                .addMember("titleTranslation = \"config.skyblock.chat.title\"").build(),
-                        )
-                        this.addAnnotation(AnnotationSpec.builder(Category::class).addMember("\"chat\"").build())
-                        for (value in entries) {
-                            addProperty(
-                                PropertySpec.builder(value.name, HidingOption::class)
-                                    .mutable(true)
-                                    .initializer("${HidingOption::class.simpleName}.${HidingOption.DISABLED.name}")
-                                    .apply {
-                                        if (lastCategory != value.category) {
-                                            lastCategory = value.category
-                                            this.addAnnotation(
-                                                AnnotationSpec.builder(ConfigOption.Separator::class)
-                                                    .addMember("\"${value.category.name}\"")
-                                                    .build(),
-                                            )
-                                        }
-                                    }
-                                    .addAnnotation(
-                                        AnnotationSpec.builder(ConfigEntry::class)
-                                            .addMember("id = \"${value.name}\", translation = \"config.skyblock.chat.${value.category.name.lowercase()}.${value.name.lowercase()}\"")
-                                            .build(),
-                                    )
-                                    .build(),
-                            )
-                        }
-                    }.build(),
-                )
-
-            // write into the actual location
-            file.build().writeTo(File("../src/client/kotlin/"))
-
+        fun entriesWithSeparators(): List<ResourcefulConfigElement> {
+            return entries.groupBy { it.category }.flatMap { (category, entries) ->
+                buildList {
+                    add(DynamicSeparator(category.name, ""))
+                    addAll(entries)
+                }
+            }
         }
     }
 }

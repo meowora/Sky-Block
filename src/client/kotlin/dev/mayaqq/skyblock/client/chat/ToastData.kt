@@ -6,7 +6,7 @@ import tech.thatgravyboat.skyblockapi.utils.regex.component.ComponentMatchResult
 import tech.thatgravyboat.skyblockapi.utils.text.CommonText
 import tech.thatgravyboat.skyblockapi.utils.text.Text
 
-data class ToastData(val duration: Float, val title: String, val body: String, val icon: ItemStack) {
+data class ToastData(val duration: Float, val title: String, val body: String, val icon: ItemStack? = null) {
     fun buildTitle(regexResult: ComponentMatchResult): Component {
         val pattern = Regex("\\{(\\d+)}")
         var lastEnd = 0

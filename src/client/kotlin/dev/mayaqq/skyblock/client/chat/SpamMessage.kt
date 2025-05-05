@@ -23,6 +23,9 @@ enum class MessageCategory {
     MISC,
     IRONMAN,
     CENTURY_CAKE,
+    FISHING,
+    RIFT,
+    EVENT
 }
 
 enum class SpamMessage(
@@ -33,6 +36,7 @@ enum class SpamMessage(
     val endRegex: String? = null,
     vararg val islands: SkyBlockIsland
 ) : ResourcefulConfigEnumValueEntry, ResourcefulConfigEntryElement {
+
     // Lobby
     LOBBY_JOIN(
         """(?:>>> )?[\s\S]*joined the lobby!(?: <<<)?""",
@@ -44,11 +48,36 @@ enum class SpamMessage(
         """Your previous [\s\S]* was removed!""",
         MessageCategory.ABILITY,
     ),
+    PICKAXE_ABILITY_COOLDOWN(
+        """^Your pickaxe ability is on cooldown for[\s\S]*""",
+        MessageCategory.ABILITY,
+    ),
+    PICKAXE_ABILITY_USED(
+        """You used your [\s\S]* Pickaxe Ability!""",
+        MessageCategory.ABILITY,
+    ),
+    PICKAXE_ABILITY_AVAILABLE(
+        """[\s\S]* is now available!""",
+        MessageCategory.ABILITY,
+    ),
+    PICKOBULUS_DESTROYED(
+        """^Your Pickobulus destroyed[\s\S]*""",
+        MessageCategory.ABILITY,
+    ),
+    PICKOBULUS_DESTROY_NOTHING(
+        """Your Pickobulus didn't destroy any blocks!""",
+        MessageCategory.ABILITY,
+    ),
+    ABILITY_ON_COOLDOWN(
+        """^This ability is on cooldown for[\s\S]*""",
+        MessageCategory.ABILITY,
+    ),
 
     // System
     GEXP_GAIN(
-        """You earned \d+ GEXP (\\+ \d+ Event EXP )?from playing [\s\S]*!""",
+        """You earned (\d+ GEXP (\\+ \d+ Event EXP )?)from playing [\s\S]*!""",
         MessageCategory.SYSTEM,
+        ToastData(4000F, "§2§lPlaytime Reward", "{1}", ItemStack(Items.GOLDEN_APPLE)),
     ),
     PROFILE_ID(
         """Profile ID: [\s\S]*""",
@@ -62,6 +91,10 @@ enum class SpamMessage(
         """[\s\S]*(\\\[WATCHDOG ANNOUNCEMENT\\]|Watchdog has banned|Staff have banned an additional|Blacklisted modifications are a bannable offense!)[\s\S]*""",
         MessageCategory.SYSTEM,
     ),
+    STORAGE_COOLDOWN(
+        """You may only use this menu after 4s on the server!""",
+        MessageCategory.SYSTEM,
+    ),
 
     // Skyblock
     SKYBLOCK_WELCOME(
@@ -73,8 +106,9 @@ enum class SpamMessage(
         MessageCategory.SKYBLOCK,
     ),
     ALLOWANCE(
-        """ALLOWANCE! You earned [\s\S]* coins!""",
+        """(ALLOWANCE!) You earned ([\s\S]* coins)!""",
         MessageCategory.SKYBLOCK,
+        ToastData(4000F, "{1}", "{2}", Items.GOLD_INGOT.defaultInstance)
     ),
     NPC(
         """\\\[NPC] [\s\S]*""",
@@ -88,6 +122,71 @@ enum class SpamMessage(
         """You may only buy up to [\s\S]* of this item each day!""",
         MessageCategory.SKYBLOCK,
     ),
+    SACKS(
+        """^\\[Sacks\\][\s\S]*""",
+        MessageCategory.SKYBLOCK,
+    ),
+    TELEPORT_PAD(
+        """Warped from the ([\s\S]*) Teleport Pad to the ([\s\S]*) Teleport Pad!*""",
+        MessageCategory.SKYBLOCK,
+    ),
+    FROM_STASH(
+        """From stash: [\s\S]*""",
+        MessageCategory.SKYBLOCK,
+    ),
+    PICKED_UP_ALL(
+        """^You picked up all items from your[\s\S]*!""",
+        MessageCategory.SKYBLOCK,
+    ),
+    STASH_EMPTY(
+        """^Your [\s\S]* stash is empty!""",
+        MessageCategory.SKYBLOCK,
+    ),
+    INVENTORY_FULL(
+        """Your inventory is full!""",
+        MessageCategory.SKYBLOCK,
+    ),
+    INVENTORY_FULL_REMINDER(
+        """^Inventory full? Don't forget to check out your Storage inside the SkyBlock Menu!""",
+        MessageCategory.SKYBLOCK,
+    ),
+    STASH_NOT_HOLDING_ANYTHING(
+        """Your stash isn't holding any items or materials!""",
+        MessageCategory.SKYBLOCK,
+    ),
+    BANK_DEPOSIT(
+        """You have deposited[\s\S]*""",
+        MessageCategory.SKYBLOCK,
+    ),
+    SELL(
+        """^You sold[\s\S]*""",
+        MessageCategory.SKYBLOCK,
+    ),
+    BANK_WITHDRAWL(
+        """You have withdrawn[\s\S]*""",
+        MessageCategory.SKYBLOCK,
+    ),
+    DEPOSITING(
+        """Depositing coins...""",
+        MessageCategory.SKYBLOCK,
+    ),
+    WITHDRAWING(
+        """Withdrawing coins...""",
+        MessageCategory.SKYBLOCK,
+    ),
+    CANNOT_DEPOSIT_THIS_LITTLE(
+        """You can't deposit this little!""",
+        MessageCategory.SKYBLOCK,
+    ),
+    MAXED_SUPERCRAFT(
+        """^Maxed the Supercraft to[\s\S]*""",
+        MessageCategory.SKYBLOCK,
+    ),
+    SUPERCRAFTED(
+        """^You Supercrafted [\s\S]*""",
+        MessageCategory.SKYBLOCK,
+    ),
+
 
     // Travel
     WARPING(
@@ -121,14 +220,17 @@ enum class SpamMessage(
     STARTING(
         """Starting in \d second(s)?.""",
         MessageCategory.DUNGEON,
+        SkyBlockIsland.THE_CATACOMBS
     ),
     STATS_DOUBLED(
         """Your [\s\S]* stats are doubled because you are the only player using this class!""",
         MessageCategory.DUNGEON,
+        SkyBlockIsland.THE_CATACOMBS
     ),
     CLASS_MESSAGE(
         """\[(Mage|Healer|Berserk|Archer|Tank)] [\s\S]*""",
         MessageCategory.DUNGEON,
+        SkyBlockIsland.THE_CATACOMBS
     ),
     DUNGEON_REQUESTED_ALREADY(
         """You have already requested a server! Please wait a bit.""",
@@ -145,12 +247,15 @@ enum class SpamMessage(
         MessageCategory.MINING,
     ),
     EVENT_STARTING(
-        """[\s\S]{3}The [\s\S]* event starts in 20 seconds![\s\S]*""",
+        """[\s\S]{3}The ([\s\S]*) event (starts in 20 seconds!)[\s\S]*""",
         MessageCategory.MINING,
+        ToastData(4000F, "{1}", "{2}", Items.CLOCK.defaultInstance),
     ),
     FALLEN_STAR(
-        """✯ A Fallen Star has crashed at [\s\S]*""",
-        MessageCategory.MINING
+        """✯ A (Fallen Star) has (crashed at [\s\S]*)""",
+        MessageCategory.MINING,
+        ToastData(4000F, "{1}", "{2}", Items.DIAMOND.defaultInstance),
+        SkyBlockIsland.DWARVEN_MINES
     ),
     MONOLITH(
         """(MONOLITH!) You found a mysterious Dark Monolith and were rewarded ([\s\S]*)!""",
@@ -164,9 +269,44 @@ enum class SpamMessage(
         MessageCategory.MINING
     ),
     SKYMALL(
-        "New buff: Gain 5x Titanium drops",
+        """New buff: ([\s\S]*)""",
         MessageCategory.MINING,
-        ToastData(4000F, "{1}", "{2}", Items.DRAGON_EGG.defaultInstance),
+        ToastData(4000F, "§9Sky Mall", "{1}"),
+    ),
+    CHEST_LOCKPICKED(
+        """▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬""",
+        MessageCategory.MINING,
+        """▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬""",
+        SkyBlockIsland.CRYSTAL_HOLLOWS
+    ),
+    TREASURE_CHEST(
+        """You uncovered a treasure chest!""",
+        MessageCategory.MINING,
+        SkyBlockIsland.CRYSTAL_HOLLOWS
+    ),
+    COMPACT(
+        """^COMPACT! You found[\s\S]*""",
+        MessageCategory.MINING,
+    ),
+    ROLLING_MINER(
+        """Rolling miner granted you double drops!""",
+        MessageCategory.MINING
+    ),
+    CHEST_ALREADY_LOOTED(
+        """This chest has already been looted.""",
+        MessageCategory.MINING,
+    ),
+    NOT_EARNED_CRYSTAL(
+        """^You have not found this Crystal yet! Place it here when you have found it!""",
+        MessageCategory.MINING,
+    ),
+    CANNOT_MINE_HERE(
+        """A magical force surrounding this area prevents you from breaking blocks![\s\S]*""",
+        MessageCategory.MINING,
+    ),
+    FUEL_REMAINING(
+        """Your [\s\S]* has [\s\S]* fuel remaining!""",
+        MessageCategory.MINING,
     ),
 
     // Item
@@ -198,6 +338,10 @@ enum class SpamMessage(
         """You can't use the Auction House while playing on your current profile type!""",
         MessageCategory.IRONMAN,
     ),
+    TRADING_DISALLOWED(
+        """You can't trade with players while playing on this type of profile!""",
+        MessageCategory.IRONMAN,
+    ),
 
     // Century Cake
     WRONG_TEAM(
@@ -216,7 +360,58 @@ enum class SpamMessage(
         """This Century Cake Slice is for .*, sorry!""",
         MessageCategory.CENTURY_CAKE,
     ),
+
+    // Fishing
+    GOLDEN_FISH_RESISTING(
+        """The Golden Fish is resisting...""",
+        MessageCategory.FISHING,
+    ),
+    GOLDEN_FISH_ESCAPES(
+        """^The Golden Fish escapes your hook""",
+        MessageCategory.FISHING,
+    ),
+
+    // Rift
+    ALREADY_FOUND_ENIGMA_SOUL(
+        """You have already found that Enigma Soul!""",
+        MessageCategory.RIFT,
+    ),
+
+    // Event
+    ALREADY_COLLECTED_EGG(
+        """You have already collected this [\s\S]* Egg! Try again when it respawns!""",
+        MessageCategory.EVENT
+    ),
+    EGG_APPEARED(
+        """(HOPPITY'S HUNT) (A [\s\S]* has appeared!)""",
+        MessageCategory.EVENT,
+        ToastData(4000F, "{1}", "{2}"),
+    ),
+    EGG_COLLECTED(
+        """(HOPPITY'S HUNT) (You found a Chocolate Lunch Egg in the Bazaar Alley!)""",
+        MessageCategory.EVENT,
+        ToastData(4000F, "{1}", "{2}"),
+    ),
+    EGG_COLLECTED(
+        """(HOPPITY'S HUNT) (You found Gracie (COMMON)!)""",
+        MessageCategory.EVENT,
+        ToastData(4000F, "{1}", "{2}"),
+    ),
+    DUPLICATE_RABBIT(
+        """(DUPLICATE RABBIT!) ([\s\S]* Chocolate)""",
+        MessageCategory.EVENT,
+        ToastData(4000F, "{1}", "{2}"),
+    ),
+    CANNOT_CLAIM_REWARD(
+        """^You cannot currently claim this reward!""",
+        MessageCategory.EVENT,
+    ),
+
     ;
+
+    constructor(regex: String, category: MessageCategory, toast: ToastData, vararg islands: SkyBlockIsland) : this(regex, category, toast, null, *islands)
+    constructor(regex: String, category: MessageCategory, endRegex: String, vararg islands: SkyBlockIsland) : this(regex, category, null, endRegex, *islands)
+    constructor(regex: String, category: MessageCategory, vararg islands: SkyBlockIsland) : this(regex, category, null, null, *islands)
 
     var option: HidingOption = HidingOption.DISABLED
 

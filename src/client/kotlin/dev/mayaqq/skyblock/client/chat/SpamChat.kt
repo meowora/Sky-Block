@@ -1,11 +1,9 @@
 package dev.mayaqq.skyblock.client.chat
 
-import com.google.common.eventbus.Subscribe
 import dev.mayaqq.skyblock.client.SkyblockClient
 import dev.mayaqq.skyblock.client.config.Config
 import dev.mayaqq.skyblock.client.utils.pushPop
 import net.minecraft.network.chat.Component
-import net.minecraft.world.item.Items
 import tech.thatgravyboat.skyblockapi.api.events.base.Subscription
 import tech.thatgravyboat.skyblockapi.api.events.chat.ActionBarReceivedEvent
 import tech.thatgravyboat.skyblockapi.api.events.chat.ChatReceivedEvent
@@ -17,7 +15,6 @@ import tech.thatgravyboat.skyblockapi.api.location.LocationAPI
 import tech.thatgravyboat.skyblockapi.helpers.McClient
 import tech.thatgravyboat.skyblockapi.utils.regex.component.ComponentMatchResult
 import tech.thatgravyboat.skyblockapi.utils.text.Text
-import java.awt.Color
 import java.util.*
 import kotlin.math.sin
 

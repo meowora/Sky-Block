@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 
-class SkyBlockToast(val icon: ItemStack, val title: Component, val text: Component, val visibilityTime: Float = 5000.0F, var visibility: Toast.Visibility? = Toast.Visibility.HIDE) : Toast {
+class SkyBlockToast(val icon: ItemStack?, val title: Component, val text: Component, val visibilityTime: Float = 5000.0F, var visibility: Toast.Visibility? = Toast.Visibility.HIDE) : Toast {
     override fun getWantedVisibility(): Toast.Visibility? = this.visibility
 
 
@@ -26,9 +26,12 @@ class SkyBlockToast(val icon: ItemStack, val title: Component, val text: Compone
         visibilityTime: Long
     ) {
         guiGraphics.blitSprite(RenderType::guiTextured, UIConstants.BUTTON.enabled, 0, 0, this.width(), this.height())
-        guiGraphics.drawString(font, title, 30, 7, -1, false)
-        guiGraphics.drawString(font, text, 30, 18, -1, false)
-
-        guiGraphics.renderFakeItem(icon, 8, 8)
+        var x = 30
+        if (icon != null) {
+            guiGraphics.renderFakeItem(icon, 8, 8)
+            x = 8
+        }
+        guiGraphics.drawString(font, title, x, 7, -1, true)
+        guiGraphics.drawString(font, text, x, 18, -1, true)
     }
 }

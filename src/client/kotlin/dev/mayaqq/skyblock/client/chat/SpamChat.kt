@@ -1,5 +1,6 @@
 package dev.mayaqq.skyblock.client.chat
 
+import com.google.common.eventbus.Subscribe
 import dev.mayaqq.skyblock.client.SkyblockClient
 import dev.mayaqq.skyblock.client.config.Config
 import dev.mayaqq.skyblock.client.utils.pushPop
@@ -8,9 +9,11 @@ import net.minecraft.world.item.Items
 import tech.thatgravyboat.skyblockapi.api.events.base.Subscription
 import tech.thatgravyboat.skyblockapi.api.events.chat.ActionBarReceivedEvent
 import tech.thatgravyboat.skyblockapi.api.events.chat.ChatReceivedEvent
+import tech.thatgravyboat.skyblockapi.api.events.hypixel.ServerChangeEvent
 import tech.thatgravyboat.skyblockapi.api.events.info.ActionBarWidget
 import tech.thatgravyboat.skyblockapi.api.events.info.RenderActionBarWidgetEvent
 import tech.thatgravyboat.skyblockapi.api.events.render.RenderHudEvent
+import tech.thatgravyboat.skyblockapi.api.location.LocationAPI
 import tech.thatgravyboat.skyblockapi.helpers.McClient
 import tech.thatgravyboat.skyblockapi.utils.text.Text
 import java.awt.Color
@@ -136,6 +139,7 @@ object SpamChat {
             val regex = message.regex
             val option = message.option()
             val found = regex.find(event.text) ?: return@forEach
+            if (message.islands.isNotEmpty() && LocationAPI.island !in message.islands) return@forEach
             if (message.endRegex != null) {
                 removing = true
                 removingRegex = Regex(message.endRegex)
@@ -177,6 +181,13 @@ object SpamChat {
                 return
             }
         }
+    }
+
+    @Subscription
+    fun onServerChange(event: ServerChangeEvent) {
+        removing = false
+        removingRegex = null
+        removingHidingOption = null
     }
 
     private var abilityUses = 0

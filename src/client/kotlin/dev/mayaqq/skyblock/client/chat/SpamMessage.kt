@@ -5,6 +5,7 @@ import com.teamresourceful.resourcefulconfig.api.types.elements.ResourcefulConfi
 import dev.mayaqq.skyblock.client.utils.DynamicEntryData
 import dev.mayaqq.skyblock.client.utils.DynamicSeparator
 import dev.mayaqq.skyblock.client.utils.ResourcefulConfigEnumValueEntry
+import tech.thatgravyboat.skyblockapi.api.location.SkyBlockIsland
 
 enum class MessageCategory {
     LOBBY,
@@ -27,6 +28,7 @@ enum class SpamMessage(
     val category: MessageCategory,
     val toast: ToastData? = null,
     val endRegex: String? = null,
+    vararg val islands: SkyBlockIsland
 ) : ResourcefulConfigEnumValueEntry, ResourcefulConfigEntryElement {
     // Lobby
     LOBBY_JOIN(
@@ -145,7 +147,7 @@ enum class SpamMessage(
     ),
     FALLEN_STAR(
         """✯ A Fallen Star has crashed at [\s\S]*""",
-        MessageCategory.MINING,
+        MessageCategory.MINING
     ),
 
     // Item

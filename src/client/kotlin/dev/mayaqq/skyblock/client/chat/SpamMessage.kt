@@ -8,6 +8,7 @@ import dev.mayaqq.skyblock.client.utils.ResourcefulConfigEnumValueEntry
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import tech.thatgravyboat.skyblockapi.api.location.SkyBlockIsland
+import tech.thatgravyboat.skyblockapi.utils.regex.component.ComponentRegex
 
 enum class MessageCategory {
     LOBBY,
@@ -30,7 +31,6 @@ enum class SpamMessage(
     val category: MessageCategory,
     val toast: ToastData? = null,
     val endRegex: String? = null,
-    val colored: Boolean = false,
     vararg val islands: SkyBlockIsland
 ) : ResourcefulConfigEnumValueEntry, ResourcefulConfigEntryElement {
     // Lobby
@@ -153,11 +153,10 @@ enum class SpamMessage(
         MessageCategory.MINING
     ),
     MONOLITH(
-        """(MONOLITH!) ([\s\S]*)""",
+        """(MONOLITH!) You found a mysterious Dark Monolith and were rewarded ([\s\S]*)!""",
         MessageCategory.MINING,
-        ToastData(4000F, "{1}{2}", "{3}", Items.DRAGON_EGG.defaultInstance),
+        ToastData(4000F, "{1}", "{2}", Items.DRAGON_EGG.defaultInstance),
         null,
-        true,
         SkyBlockIsland.DWARVEN_MINES
     ),
     SKYMALL_NEW_DAY(
@@ -242,7 +241,7 @@ enum class SpamMessage(
     override fun id() = name
     override fun entry() = this
 
-    val regex: Regex = Regex(regex)
+    val regex: ComponentRegex = ComponentRegex(regex)
 
     fun option() = option
 

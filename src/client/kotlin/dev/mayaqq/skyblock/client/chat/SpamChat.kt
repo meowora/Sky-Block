@@ -15,6 +15,7 @@ import tech.thatgravyboat.skyblockapi.api.events.info.RenderActionBarWidgetEvent
 import tech.thatgravyboat.skyblockapi.api.events.render.RenderHudEvent
 import tech.thatgravyboat.skyblockapi.api.location.LocationAPI
 import tech.thatgravyboat.skyblockapi.helpers.McClient
+import tech.thatgravyboat.skyblockapi.utils.regex.component.ComponentMatchResult
 import tech.thatgravyboat.skyblockapi.utils.text.Text
 import java.awt.Color
 import java.util.*
@@ -139,19 +140,19 @@ object SpamChat {
         SpamMessage.entries.forEach { message ->
             val regex = message.regex
             val option = message.option()
-            val found = regex.find(if (message.colored) event.coloredText else event.text) ?: return@forEach
+            val found = regex.find(event.component) ?: return@forEach
             if (message.islands.isNotEmpty() && LocationAPI.island !in message.islands) return@forEach
             if (message.endRegex != null) {
                 removing = true
                 removingRegex = Regex(message.endRegex)
                 removingHidingOption = option
             }
-            SkyblockClient.info("Removing message {} with regex {} and option {} and colored text {}", event.text, regex.pattern, option, event.coloredText)
+            SkyblockClient.info("Removing message {} with regex {} and option {} and colored text {}", event.text, regex, option, event.coloredText)
             removeMessage(option, event, message, found)
         }
     }
 
-    private fun removeMessage(option: HidingOption, event: ChatReceivedEvent.Pre, message: SpamMessage? = null, regexResult: MatchResult? = null) {
+    private fun removeMessage(option: HidingOption, event: ChatReceivedEvent.Pre, message: SpamMessage? = null, regexResult: ComponentMatchResult? = null) {
         when (option) {
             HidingOption.SEPARATE -> {
                 separate(event.component)

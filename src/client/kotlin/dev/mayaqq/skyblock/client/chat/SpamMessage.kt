@@ -33,7 +33,7 @@ enum class SpamMessage(
     regex: String,
     val category: MessageCategory,
     val toast: ToastData? = null,
-    val endRegex: String? = null,
+    val multilineData: MultilineData? = null,
     vararg val islands: SkyBlockIsland
 ) : ResourcefulConfigEnumValueEntry, ResourcefulConfigEntryElement {
 
@@ -289,7 +289,7 @@ enum class SpamMessage(
     CHEST_LOCKPICKED(
         """▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬""",
         MessageCategory.MINING,
-        """▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬""",
+        MultilineData("""▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬""", true, true),
         SkyBlockIsland.CRYSTAL_HOLLOWS
     ),
     TREASURE_CHEST(
@@ -427,7 +427,7 @@ enum class SpamMessage(
     ;
 
     constructor(regex: String, category: MessageCategory, toast: ToastData, vararg islands: SkyBlockIsland) : this(regex, category, toast, null, *islands)
-    constructor(regex: String, category: MessageCategory, endRegex: String, vararg islands: SkyBlockIsland) : this(regex, category, null, endRegex, *islands)
+    constructor(regex: String, category: MessageCategory, multilineData: MultilineData?, vararg islands: SkyBlockIsland) : this(regex, category, null, multilineData, *islands)
     constructor(regex: String, category: MessageCategory, vararg islands: SkyBlockIsland) : this(regex, category, null, null, *islands)
 
     var option: HidingOption = HidingOption.DISABLED

@@ -96,6 +96,7 @@ object SpamChat {
     private var removing = false
     private var removingRegex: Regex? = null
     private var removingHidingOption: HidingOption? = null
+    private var skipLast: Boolean = false
 
     @Subscription
     fun onChatReceived(event: ChatReceivedEvent.Pre) {
@@ -105,7 +106,12 @@ object SpamChat {
         if (removingRegex != null && removingRegex!!.find(event.text) != null) {
             removing = false
             removingRegex = null
-            removeMessage(removingHidingOption!!, event)
+            if (skipLast) {
+                event.cancel()
+                skipLast = false
+            } else {
+                removeMessage(removingHidingOption!!, event)
+            }
             removingHidingOption = null
             return
         }
@@ -139,12 +145,16 @@ object SpamChat {
             val option = message.option()
             val found = regex.find(event.component) ?: return@forEach
             if (message.islands.isNotEmpty() && LocationAPI.island !in message.islands) return@forEach
-            if (message.endRegex != null) {
+            if (message.multilineData != null) {
                 removing = true
-                removingRegex = Regex(message.endRegex)
+                removingRegex = Regex(message.multilineData.endRegex)
                 removingHidingOption = option
+                skipLast = message.multilineData.skipLast
+                if (message.multilineData.skipFirst) {
+                    event.cancel()
+                    return
+                }
             }
-            SkyblockClient.info("Removing message {} with regex {} and option {} and colored text {}", event.text, regex, option, event.coloredText)
             if (removeMessage(option, event, message, found)) return
         }
     }

@@ -46,6 +46,14 @@ object Config : ConfigKt("sky-block") {
         translation = "config.skyblock.actionBar.abilityUse"
     }
 
+    var toastTextShadow by boolean("toastTextShadow", true) {
+        translation = "config.skyblock.toast.toastTextShadow"
+    }
+
+    var toastTexture by enum("toastTexture", ToastTexture.NORMAL) {
+        translation = "config.skyblock.toast.toastTexture"
+    }
+
     override val name = Literal("Sky-Block (v${SkyblockClient.self.metadata.version.friendlyString})")
     override val description = Literal("Customizable mod for Hypixel Skyblock removing/moving chat messages")
 

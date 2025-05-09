@@ -49,7 +49,8 @@ repositories {
     maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1") // DevAuth
     maven("https://repo.hypixel.net/repository/Hypixel/") // Hypixel API
     maven("https://api.modrinth.com/maven") // Hypixel API kotlin
-    maven("https://nexus.resourcefulbees.com/repository/maven-public/") // Skyblock API
+    maven("https://maven.teamresourceful.com/repository/maven-public/") // Skyblock API
+    maven(url = "https://maven.nucleoid.xyz")
 }
 
 dependencies {
@@ -72,6 +73,9 @@ dependencies {
 
     modImplementation(libs.resourceful.config)
     modImplementation(libs.resourceful.config.kotlin)
+
+    modImplementation(libs.meowdding.lib)
+    include(libs.meowdding.lib)
 
     modImplementation(libs.olympus)
     include(libs.olympus)

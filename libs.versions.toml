@@ -13,6 +13,7 @@ sbapi = "1.0.0-beta.100"
 resourceful-config = "3.5.4"
 resourceful-config-kotlin = "3.5.6"
 olympus = "1.3.0"
+meowdding-lib = "1.0.6"
 
 kotlinx-coroutines-core = "1.10.1"
 
@@ -33,6 +34,7 @@ resourceful-config = { module = "com.teamresourceful.resourcefulconfig:resourcef
 resourceful-config-kotlin = { module = "com.teamresourceful.resourcefulconfigkt:resourcefulconfigkt-fabric-1.21.5", version.ref = "resourceful-config-kotlin" }
 devauth = { module = "me.djtheredstoner:DevAuth-fabric", version.ref = "devauth" }
 olympus = { module = "earth.terrarium.olympus:olympus-fabric-1.21.5", version.ref = "olympus" }
+meowdding-lib = { module = "me.owdding.meowdding-lib:meowdding-lib-1.21.5", version.ref = "meowdding-lib" }
 
 [plugins]
 publish = { id = "me.modmuss50.mod-publish-plugin", version.ref = "publish" }

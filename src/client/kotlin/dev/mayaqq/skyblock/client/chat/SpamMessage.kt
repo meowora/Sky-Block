@@ -175,7 +175,7 @@ enum class SpamMessage(
         """^You sold[\s\S]*""",
         MessageCategory.SKYBLOCK,
     ),
-    BANK_WITHDRAWL(
+    BANK_WITHDRAWAL(
         """You have withdrawn[\s\S]*""",
         MessageCategory.SKYBLOCK,
     ),
@@ -356,24 +356,6 @@ enum class SpamMessage(
         MessageCategory.IRONMAN,
     ),
 
-    // Century Cake
-    WRONG_TEAM(
-        """This person is not on the right team! Feed this cake to someone on the .* Team!""",
-        MessageCategory.CENTURY_CAKE,
-    ),
-    TOO_MUCH_CAKE(
-        """This person has had too much cake today!""",
-        MessageCategory.CENTURY_CAKE,
-    ),
-    NOT_A_PLAYER(
-        """Click a player on a matching team to feed them this cake! This isn't a player!""",
-        MessageCategory.CENTURY_CAKE,
-    ),
-    NOT_YOUR_CAKE(
-        """This Century Cake Slice is for .*, sorry!""",
-        MessageCategory.CENTURY_CAKE,
-    ),
-
     // Fishing
     GOLDEN_FISH_RESISTING(
         """The Golden Fish is resisting...""",
@@ -422,8 +404,23 @@ enum class SpamMessage(
     NO_EGGS_NEARBY(
         """There are no hidden Chocolate Rabbit Eggs nearby! Try again later!""",
         MessageCategory.EVENT,
-    )
-
+    ),
+    WRONG_TEAM(
+        """This person is not on the right team! Feed this cake to someone on the .* Team!""",
+        MessageCategory.EVENT,
+    ),
+    TOO_MUCH_CAKE(
+        """This person has had too much cake today!""",
+        MessageCategory.EVENT,
+    ),
+    NOT_A_PLAYER(
+        """Click a player on a matching team to feed them this cake! This isn't a player!""",
+        MessageCategory.EVENT,
+    ),
+    NOT_YOUR_CAKE(
+        """This Century Cake Slice is for .*, sorry!""",
+        MessageCategory.EVENT,
+    ),
     ;
 
     constructor(regex: String, category: MessageCategory, toast: ToastData, vararg islands: SkyBlockIsland) : this(regex, category, toast, null, *islands)

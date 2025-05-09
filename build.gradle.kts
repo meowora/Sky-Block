@@ -50,7 +50,6 @@ repositories {
     maven("https://repo.hypixel.net/repository/Hypixel/") // Hypixel API
     maven("https://api.modrinth.com/maven") // Hypixel API kotlin
     maven("https://maven.teamresourceful.com/repository/maven-public/") // Skyblock API
-    maven(url = "https://maven.nucleoid.xyz")
 }
 
 dependencies {

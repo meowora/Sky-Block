@@ -22,6 +22,16 @@
             "desc": ""
         }
     },
+    "toast": {
+        "toastTextShadow": {
+            "@value": "Toast Text Shadow",
+            "desc": "Enable shadow for text in toasts"
+        },
+        "toastTexture": {
+            "@value": "Toast Texture",
+            "desc": "Choose a background texture for the toast"
+        }
+    },
     "chat": {
         "title": "Title",
         "lobby": {
@@ -33,6 +43,30 @@
         "ability": {
             "previous_ability_removed": {
                 "@value": "Ability Use Message",
+                "desc": ""
+            },
+            "pickaxe_ability_cooldown": {
+                "@value": "Pickaxe Ability Cooldown Message",
+                "desc": ""
+            },
+            "pickaxe_ability_used": {
+                "@value": "Pickaxe Ability Used Message",
+                "desc": ""
+            },
+            "pickaxe_ability_available": {
+                "@value": "Pickaxe Ability Available Message",
+                "desc": ""
+            },
+            "pickobulus_destroyed": {
+                "@value": "Pickobolus Destroyed Message",
+                "desc": ""
+            },
+            "pickobulus_destroy_nothing": {
+                "@value": "Pickobolus Destroy Nothing Message",
+                "desc": ""
+            },
+            "ability_on_cooldown": {
+                "@value": "Ability on Cooldown Message",
                 "desc": ""
             }
         },
@@ -51,6 +85,22 @@
             },
             "watchdog_report": {
                 "@value": "Watchdog Report Message",
+                "desc": ""
+            },
+            "storage_cooldown": {
+                "@value": "Storage Cooldown Message",
+                "desc": ""
+            },
+            "latest_update": {
+                "@value": "Latest Update Message",
+                "desc": ""
+            },
+            "friend_status": {
+                "@value": "Friend Status Message",
+                "desc": ""
+            },
+            "guild_status": {
+                "@value": "Guild Status Message",
                 "desc": ""
             }
         },
@@ -78,10 +128,74 @@
             "buy_limit": {
                 "@value": "Buy Limit Message",
                 "desc": ""
+            },
+            "sacks": {
+                "@value": "Sack Message",
+                "desc": ""
+            },
+            "teleport_pad": {
+                "@value": "Teleport Pad Message",
+                "desc": ""
+            },
+            "from_stash": {
+                "@value": "From Stash Message",
+                "desc": ""
+            },
+            "picked_up_all": {
+                "@value": "Picked Up All Message",
+                "desc": ""
+            },
+            "stash_empty": {
+                "@value": "Stash Empty Message",
+                "desc": ""
+            },
+            "inventory_full": {
+                "@value": "Inventory Full Message",
+                "desc": ""
+            },
+            "inventory_full_reminder": {
+                "@value": "Inventory Full Reminder Message",
+                "desc": ""
+            },
+            "stash_not_holding_anything": {
+                "@value": "Stash Not Holding Anything Message",
+                "desc": ""
+            },
+            "bank_deposit": {
+                "@value": "Bank Deposit Message",
+                "desc": ""
+            },
+            "sell": {
+                "@value": "Sell Message",
+                "desc": ""
+            },
+            "bank_withdrawal": {
+                "@value": "Bank Withdraw Message",
+                "desc": ""
+            },
+            "depositing": {
+                "@value": "Depositing Message",
+                "desc": ""
+            },
+            "withdrawing": {
+                "@value": "Withdrawing Message",
+                "desc": ""
+            },
+            "cannot_deposit_this_little": {
+                "@value": "Cannot Deposit This Little Message",
+                "desc": ""
+            },
+            "maxed_supercraft": {
+                "@value": "Maxed Supercraft Message",
+                "desc": ""
+            },
+            "supercrafted": {
+                "@value": "Supercrafted Message",
+                "desc": ""
             }
         },
         "travel": {
-            "warp": {
+            "warping": {
                 "@value": "Warp Message",
                 "desc": ""
             },
@@ -130,6 +244,64 @@
                 "desc": ""
             }
         },
+        "mining": {
+            "wind_changed_direction": {
+                "@value": "Wind Changed Direction Message",
+                "desc": ""
+            },
+            "event_starting": {
+                "@value": "Event Starting Message",
+                "desc": ""
+            },
+            "fallen_star": {
+                "@value": "Fallen Star Message",
+                "desc": ""
+            },
+            "monolith": {
+                "@value": "Monolith Message",
+                "desc": ""
+            },
+            "skymall_new_day": {
+                "@value": "Skymall New Day Message",
+                "desc": ""
+            },
+            "skymall": {
+                "@value": "Skymall Message",
+                "desc": ""
+            },
+            "chest_lockpicked": {
+                "@value": "Chest Lockpicked Message",
+                "desc": ""
+            },
+            "treasure_chest": {
+                "@value": "Treasure Chest Message",
+                "desc": ""
+            },
+            "compact": {
+                "@value": "Compact Message",
+                "desc": ""
+            },
+            "rolling_miner": {
+                "@value": "Rolling Miner Message",
+                "desc": ""
+            },
+            "chest_already_looted": {
+                "@value": "Chest Already Looted Message",
+                "desc": ""
+            },
+            "not_earned_crystal": {
+                "@value": "Not Earned Crystal Message",
+                "desc": ""
+            },
+            "cannot_mine_here": {
+                "@value": "Cannot Mine Here Message",
+                "desc": ""
+            },
+            "fuel_remaining": {
+                "@value": "Fuel Remaining Message",
+                "desc": ""
+            }
+        },
         "item": {
             "zombie_sword_no_more_charges": {
                 "@value": "Zombie Sword No More Charges Message",
@@ -158,23 +330,57 @@
             "auction_disallowed": {
                 "@value": "Auction Disallowed Message",
                 "desc": ""
-            }
-        },
-        "mining": {
-            "wind_changed_direction": {
-                "@value": "Wind Changed Direction Message",
-                "desc": ""
             },
-            "event_starting": {
-                "@value": "Event Starting Message",
-                "desc": ""
-            },
-            "fallen_star": {
-                "@value": "Fallen Star Message",
+            "trading_disallowed": {
+                "@value": "Trading Disallowed Message",
                 "desc": ""
             }
         },
-        "century_cake": {
+        "fishing": {
+            "golden_fish_resisting": {
+                "@value": "Golden Fish Resisting Message",
+                "desc": ""
+            },
+            "golden_fish_escapes": {
+                "@value": "Golden Fish Escapes Message",
+                "desc": ""
+            }
+        },
+        "rift": {
+            "already_found_enigma_soul": {
+                "@value": "Already Found Enigma Soul Message",
+                "desc": ""
+            }
+        },
+        "event": {
+            "already_collected_egg": {
+                "@value": "Already Collected Egg Message",
+                "desc": ""
+            },
+            "egg_appeared": {
+                "@value": "Egg Appeared Message",
+                "desc": ""
+            },
+            "egg_found": {
+                "@value": "Egg Found Message",
+                "desc": ""
+            },
+            "egg_collected": {
+                "@value": "Egg Collected Message",
+                "desc": ""
+            },
+            "duplicate_rabbit": {
+                "@value": "Duplicate Rabbit Message",
+                "desc": ""
+            },
+            "cannot_claim_reward": {
+                "@value": "Cannot Claim Reward Message",
+                "desc": ""
+            },
+            "no_eggs_nearby": {
+                "@value": "No Eggs Nearby Message",
+                "desc": ""
+            },
             "wrong_team": {
                 "@value": "Wrong Team Message",
                 "desc": ""
